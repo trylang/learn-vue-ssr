@@ -20,6 +20,14 @@ const devServer = {
   // 不刷新热加载数据
   hot: true
 };
+
+const definePlugins = [new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: isDev ? '"development"' : '"production"'
+  }
+}),
+new HTMLPlugin()];
+
 let config;
 
 if (isDev) {
@@ -43,17 +51,17 @@ if (isDev) {
       }]
     },
     devServer,
-    plugins: [
+    plugins: definePlugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
-    ]
+    ])
   });
 
 } else {
   // 生成坏境的配置
   config = merge(baseConfig, {
     entry: {   // 将所用到的类库单独打包
-      app: path.join(__dirname, '../src/index.js'),
+      app: path.join(__dirname, '../client/index.js'),
       vendor: ['vue']
     },
     output: {
@@ -77,8 +85,12 @@ if (isDev) {
         })
       }]
     },
-    plugins: [
-      new ExtractPlugin('styles.[contentHash:8].css')
+    plugins: definePlugins.concat([
+      // webpack 4.5.0 不支持 extract-text-webpack-plugin 插件，换4.2.0版本以下
+      // new ExtractPlugin('styles.[contentHash:8].css')
+      // 把 contentHash] 换成  [chunkhash:8]
+      new ExtractPlugin('styles.[chunkhash:8].css')
+
       // // 将类库文件单独打包出来
       // new webpack.optimize.CommonsChunkPlugin({
       //     name: 'vendor'
@@ -88,7 +100,7 @@ if (isDev) {
       // new webpack.optimize.CommonsChunkPlugin({
       //     name: 'runtime'
       // })
-    ],
+    ]),
     optimization: {
       splitChunks: {
         cacheGroups: {                  // 这里开始设置缓存的 chunks

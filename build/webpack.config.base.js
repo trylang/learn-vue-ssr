@@ -1,10 +1,10 @@
 const path = require('path');
 const config = {
   target: 'web',
-  entry: path.join(__dirname, '../src/index.js'),   // 输入：项目主文件（入口文件）
+  entry: path.join(__dirname, '../client/index.js'),   // 输入：项目主文件（入口文件）
   output: {       // 输出
     filename: 'build.[hash:8].js',  // 输出的文件名
-    path: path.join(__dirname, 'dist')  // 输出路径
+    path: path.join(__dirname, '../dist')  // 输出路径
   },
   module: {       // 配置加载资源
     rules: [    // 规则

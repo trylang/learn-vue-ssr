@@ -10,13 +10,13 @@
 
 <script>
     // 引入header.vue组件
-    import APP_Header from './todo/header.vue';
+    import APP_Header from './layout/header.vue';
 
     // 引入footer.jsx组件
-    import APP_Footer from './todo/footer.jsx';
+    import APP_Footer from './layout/footer.jsx';
 
     // 引入todo.vue组件
-    import APP_Todo from './todo/todo.vue';
+    import APP_Todo from './views/todo/todo.vue';
 
     export default {
         // 声明组件，之后便可以使用组件标签
