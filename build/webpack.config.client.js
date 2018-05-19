@@ -38,7 +38,8 @@ if (isDev) {
       rules: [{
         test: /\.styl/,
         use: [
-          'style-loader',
+          // 'style-loader',
+          'vue-style-loader', // vue文件下写css进行热更新的功能
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -71,7 +72,7 @@ if (isDev) {
       rules: [{
         test: /\.styl/,
         use: ExtractPlugin.extract({
-          fallback: 'style-loader',
+          fallback: 'vue-style-loader',
           use: [
             'css-loader',
             {
