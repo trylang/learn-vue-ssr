@@ -10,21 +10,21 @@
 
 <script>
     // 引入header.vue组件
-    import APP_Header from './layout/header.vue';
+    import APPHeader from './layout/header.vue'
 
-    // 引入footer.jsx组件
-    import APP_Footer from './layout/footer.jsx';
+// 引入footer.jsx组件
+import APPFooter from './layout/footer.jsx'
 
-    // 引入todo.vue组件
-    import APP_Todo from './views/todo/todo.vue';
+// 引入todo.vue组件
+import APPTodo from './views/todo/todo.vue'
 
-    export default {
-        // 声明组件，之后便可以使用组件标签
-        components: {
-            APP_Header,
-            APP_Footer,
-            APP_Todo
-        }
+export default {
+      // 声明组件，之后便可以使用组件标签
+      components: {
+        APPHeader,
+        APPFooter,
+        APPTodo
+      }
     }
 </script>
 

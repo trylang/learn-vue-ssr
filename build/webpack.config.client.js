@@ -41,6 +41,13 @@ if (isDev) {
           // 'style-loader',
           'vue-style-loader', // vue文件下写css进行热更新的功能
           'css-loader',
+          // {
+          //   loader: 'css-loader',
+          //   options: {
+          //     module: true,
+          //     localIdentName: isDev?'[path]-[name]-[hash:base64:5]': '[hash:base64:5]',
+          //   }
+          // },
           {
             loader: 'postcss-loader',
             options: {

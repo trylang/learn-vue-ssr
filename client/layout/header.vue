@@ -1,10 +1,18 @@
 <template>
-    <header class="main-header">
+    <header :class="$style['main-header']">
         <h1>TodoAPP</h1>
     </header>
 </template>
+<script>
+export default {
+  name: '',
+  mounted () {
+    console.log(this.$style)
+  }
+}
+</script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" module>
     .main-header {
         text-align center
         h1 {

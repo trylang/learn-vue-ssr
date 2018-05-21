@@ -9,6 +9,12 @@ const config = {
   module: {       // 配置加载资源
     rules: [    // 规则
       {
+        test: /\.(vue|js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
