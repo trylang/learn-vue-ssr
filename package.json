@@ -8,7 +8,7 @@
     "clean": "rimraf dist",
     "lint": "eslint --ext .js --ext .jsx --ext .vue client/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client/",
-    "precommit": "npm run lint", // 先有git 才能提交
+    "precommit": "npm run lint-fix",
     "build:client": "cross-env NODE_ENV=production webpack --mode production --config build/webpack.config.client.js",
     "build": "npm run clean && npm run build:client",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.client.js"
@@ -16,7 +16,8 @@
   "author": "itPoet",
   "license": "ISC",
   "dependencies": {
-    "vue": "^2.5.13"
+    "vue": "^2.5.13",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
