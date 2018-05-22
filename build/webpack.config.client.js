@@ -16,7 +16,11 @@ const devServer = {
     errors: true,
   },
   // open: true,
-
+  // historyApiFallback 当vue-router配置mode为history时，用户手动刷新页面
+  // 会报404，因为会请求服务端， 所以需要此配置项。 如果是前端跳转路由则没问题。
+  historyApiFallback: {
+   index: '/public/index.html'
+  },
   // 不刷新热加载数据
   hot: true
 };

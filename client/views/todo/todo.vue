@@ -12,12 +12,12 @@
              v-for="todo in filteredTodos" 遍历 todos 数组
              @del="deleteTodo" 接收子组件要触发的del方法
         -->
-        <APP_Item :todo="todo"
+        <APP-item :todo="todo"
                   v-for="todo in filteredTodos"
                   :key="todo.id"
                   @del="deleteTodo"
         >
-        </APP_Item>
+        </APP-item>
         <!--
             用 key 管理可复用的元素
             Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。
@@ -26,12 +26,12 @@
 
 
         <!-- 使用tabs组件 -->
-        <APP_Tabs :filter="filter"
+        <APP-tabs :filter="filter"
                   :todos="todos"
                   @toggle="toggleFilter"
                   @clearAllCompleted="clearAllCompleted"
         >
-        </APP_Tabs>
+        </APP-tabs>
     </section>
 </template>
 

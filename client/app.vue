@@ -2,9 +2,10 @@
     <!-- app.vue 的template标签内只能有一个节点 -->
     <div id="app">
         <div id="cover"></div>
-        <APP_Header></APP_Header>
-        <APP_Todo></APP_Todo>
-        <APP_Footer></APP_Footer>
+        <APP-header></APP-header>
+        <router-view/>
+        <!-- <APP-todo></APP-todo> -->
+        <APP-footer></APP-footer>
     </div>
 </template>
 
