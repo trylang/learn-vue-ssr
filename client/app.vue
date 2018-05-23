@@ -3,7 +3,11 @@
     <div id="app">
         <div id="cover"></div>
         <APP-header></APP-header>
-        <router-view/>
+        <router-link to="app">app</router-link>
+        <router-link to="login">login</router-link>
+        <transition name="fade">
+          <router-view/>
+        </transition>
         <!-- <APP-todo></APP-todo> -->
         <APP-footer></APP-footer>
     </div>
