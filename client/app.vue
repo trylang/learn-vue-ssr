@@ -21,14 +21,14 @@
 import APPFooter from './layout/footer.jsx'
 
 // 引入todo.vue组件
-import APPTodo from './views/todo/todo.vue'
+// import APPTodo from './views/todo/todo.vue'
 
 export default {
       // 声明组件，之后便可以使用组件标签
       components: {
         APPHeader,
-        APPFooter,
-        APPTodo
+        APPFooter
+        // APPTodo
       }
     }
 </script>
