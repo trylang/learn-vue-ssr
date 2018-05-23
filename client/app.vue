@@ -3,6 +3,7 @@
     <div id="app">
         <div id="cover"></div>
         <APP-header></APP-header>
+        <h1 style="color: #fff;">{{fullName}} || {{counter}}</h1>
         <router-link to="app">app</router-link>
         <router-link to="login">login</router-link>
         <transition name="fade">
@@ -14,8 +15,9 @@
 </template>
 
 <script>
-    // 引入header.vue组件
-    import APPHeader from './layout/header.vue'
+import {mapState, mapGetters} from 'vuex'
+// 引入header.vue组件
+import APPHeader from './layout/header.vue'
 
 // 引入footer.jsx组件
 import APPFooter from './layout/footer.jsx'
@@ -24,13 +26,33 @@ import APPFooter from './layout/footer.jsx'
 // import APPTodo from './views/todo/todo.vue'
 
 export default {
-      // 声明组件，之后便可以使用组件标签
-      components: {
-        APPHeader,
-        APPFooter
-        // APPTodo
-      }
-    }
+  // 声明组件，之后便可以使用组件标签
+  components: {
+    APPHeader,
+    APPFooter
+    // APPTodo
+  },
+  mounted () {
+    console.log(this.$store)
+    // let i = 1
+    // setInterval(() => {
+    //   this.$store.commit('updateCount', i++)
+    // }, 1000)
+  },
+  computed: {
+    ...mapState({
+      // counter: 'count'
+      counter: (state) => state.count + 21
+    }),
+    ...mapGetters(['fullName'])
+    // count () {
+    //   return this.$store.state.count
+    // },
+    // fullName () {
+    //   return this.$store.getters.fullName
+    // }
+  }
+}
 </script>
 
 <!-- 设置scoped 表示当前组件下的id只在当前组件起作用，不会跟其他组件引起冲突 -->

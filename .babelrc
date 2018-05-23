@@ -1,6 +1,8 @@
 {
   "presets": [
-    "env"
+    "env",
+    "stage-1" // "npm i babel-preset-stage-1 -D" 为了使用es6新语法...修饰符等
+
   ],
   "plugins": [
     "transform-vue-jsx",
