@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 // 引入header.vue组件
 import APPHeader from './layout/header.vue'
 
@@ -34,6 +34,7 @@ export default {
   },
   mounted () {
     console.log(this.$store)
+    this.updateCountAsync({num: 5, time: 1000})
     // let i = 1
     // setInterval(() => {
     //   this.$store.commit('updateCount', i++)
@@ -51,6 +52,10 @@ export default {
     // fullName () {
     //   return this.$store.getters.fullName
     // }
+  },
+  methods: {
+    ...mapMutations(['updateCount']),
+    ...mapActions(['updateCountAsync'])
   }
 }
 </script>

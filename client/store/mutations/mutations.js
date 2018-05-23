@@ -1,5 +1,5 @@
 export default {
-  updateCount (state, num) {
+  updateCount (state, {num}) {
     state.count = num
   }
 }
