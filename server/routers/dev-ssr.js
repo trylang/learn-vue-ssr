@@ -1,4 +1,5 @@
 const Router = require('koa-router')
+const path = require('path')
 const axios = require('axios')
 
 // memory-fs读取文件是写入内存里，而是磁盘上，如果是写入磁盘。会出现文件夹。
@@ -14,5 +15,14 @@ const mfs = new MemoryFS()
 serverCompiler.outputFileSystem = mfs // 输出目录是在mfs里
 
 let bundle // 记录webpack每次打包生成的新的文件
+serverCompiler.watch({}, (err, stats) => { // 看webpack文档
+  if (err) throw err
+  stats = stats.toJson()
+  stats.errors.forEach(err => console.log(err))
+  stats.warnings.forEach(warn => console.warn(warn))
 
-
+  // const bundlePath = path.join(
+  //   serverConfig.output.path,
+  //   'vue-ssr-server-bundle.json'
+  // )
+})
