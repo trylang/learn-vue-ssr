@@ -1,38 +1,44 @@
-const path = require('path');
-const HTMLPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const ExtractPlugin = require('extract-text-webpack-plugin');
+const path = require('path')
+const HTMLPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+const ExtractPlugin = require('extract-text-webpack-plugin')
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 /** 新增项 */
-const merge = require('webpack-merge');
-const baseConfig = require('./webpack.config.base');
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.config.base')
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 
 const devServer = {
   port: '8888',
   host: '0.0.0.0',
-  overlay: {  // webpack编译出现错误，则显示到网页上
+  overlay: { // webpack编译出现错误，则显示到网页上
     errors: true,
   },
   // open: true,
   // historyApiFallback 当vue-router配置mode为history时，用户手动刷新页面
   // 会报404，因为会请求服务端， 所以需要此配置项。 如果是前端跳转路由则没问题。
   historyApiFallback: {
-   index: '/public/index.html'
+    index: '/public/index.html'
   },
   // 不刷新热加载数据
   hot: true
-};
+}
 
-const definePlugins = [new webpack.DefinePlugin({
-  'process.env': {
-    NODE_ENV: isDev ? '"development"' : '"production"'
-  }
-}),
-new HTMLPlugin()];
+const definePlugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: isDev ? '"development"' : '"production"'
+    }
+  }),
+  new HTMLPlugin({
+    template: path.join(__dirname, 'template.html')
+  }),
+  new VueClientPlugin()
+]
 
-let config;
+let config
 
 if (isDev) {
   // 开发坏境的配置
@@ -65,14 +71,13 @@ if (isDev) {
     devServer,
     plugins: definePlugins.concat([
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin(),
     ])
-  });
-
+  })
 } else {
   // 生成坏境的配置
   config = merge(baseConfig, {
-    entry: {   // 将所用到的类库单独打包
+    entry: { // 将所用到的类库单独打包
       app: path.join(__dirname, '../client/index.js'),
       vendor: ['vue']
     },
@@ -137,4 +142,4 @@ if (isDev) {
 
 }
 
-module.exports = config;
+module.exports = config
