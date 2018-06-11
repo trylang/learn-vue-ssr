@@ -1,5 +1,9 @@
 const Koa = require('koa')
 
+const send = require('koa-send') // koa-send 用于发送静态文件资源
+
+const path = require('path')
+
 const app = new Koa()
 
 const pageRouter = require('./routers/dev-ssr')
@@ -18,6 +22,15 @@ app.use(async (ctx, next) => {
     } else {
       ctx.body = 'plesase try again later'
     }
+  }
+})
+
+// 使用koa-send中间件，异步发送ico,否则就下一步next
+app.use(async (ctx, next) => {
+  if (ctx.path === '/favicon.ico') {
+    await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
+  } else {
+    await next()
   }
 })
 

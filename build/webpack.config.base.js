@@ -6,7 +6,8 @@ const config = {
   output: {       // 输出
     filename: 'build.[hash:8].js',  // 输出的文件名
     path: path.join(__dirname, '../dist'),  // 输出路径
-    publicPath: '/public/' // 基路径，如果router配置了mode为history，则webpack.config.client.js 中historyApiFallback也要配置基路径
+    // publicPath: '/public/' // 基路径，如果router配置了mode为history，则webpack.config.client.js 中historyApiFallback也要配置基路径
+    publicPath: 'http://127.0.0.1:8888/public/' // 为了服务端加载图片及script的路径一直保持这个静态资源的路径
   },
   module: {       // 配置加载资源
     rules: [    // 规则
