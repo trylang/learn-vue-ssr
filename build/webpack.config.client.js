@@ -108,6 +108,7 @@ if (isDev) {
       // 把 contentHash] 换成  [chunkhash:8]
       new ExtractPlugin('styles.[chunkhash:8].css')
 
+      // webpack4已废弃CommonsChunkPlugin
       // // 将类库文件单独打包出来
       // new webpack.optimize.CommonsChunkPlugin({
       //     name: 'vendor'
