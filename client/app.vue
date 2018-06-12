@@ -26,6 +26,9 @@ import APPFooter from './layout/footer.jsx'
 // import APPTodo from './views/todo/todo.vue'
 
 export default {
+  metaInfo: {
+    title: 'Jane\'s app'
+  },
   // 声明组件，之后便可以使用组件标签
   components: {
     APPHeader,

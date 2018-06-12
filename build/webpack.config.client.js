@@ -71,14 +71,14 @@ if (isDev) {
     devServer,
     plugins: definePlugins.concat([
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
     ])
   })
 } else {
   // 生成坏境的配置
   config = merge(baseConfig, {
     entry: { // 将所用到的类库单独打包
-      app: path.join(__dirname, '../client/index.js'),
+      app: path.join(__dirname, '../client/client-entry.js'),
       vendor: ['vue']
     },
     output: {

@@ -5,6 +5,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+// 服务端跟随路由去渲染title,meta等头部标签信息，如此就可以在app.vue文件里申明一些metaInfo，子meta会覆盖父meta
+import Meta from 'vue-meta'
 import App from './app.vue'
 
 // 引入全局CSS样式
@@ -14,6 +16,7 @@ import createStore from './store/store'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(Meta)
 
 // // 在body下创建一个根节点
 // 在服务端渲染时没有ducument

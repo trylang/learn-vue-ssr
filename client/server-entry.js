@@ -17,6 +17,9 @@ export default context => {
       if (!matchedComponents.length) {
         return reject(new Error('no component matched'))
       }
+      // 这里从app.$meta拿到route的meta信息，用于在server/server-render.js中使用,
+      // 用于解决在server/server.template.ejs模板中固定title头信息
+      context.meta = app.$meta()
       resolve(app)
     })
   })
