@@ -4,9 +4,9 @@ const send = require('koa-send') // koa-send 用于发送静态文件资源
 
 const path = require('path')
 
-const app = new Koa()
+const staticRouter = require('./routers/static')
 
-const pageRouter = require('./routers/dev-ssr')
+const app = new Koa()
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -33,6 +33,16 @@ app.use(async (ctx, next) => {
     await next()
   }
 })
+
+// 先处理静态资源
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+let pageRouter
+if (isDev) {
+  pageRouter = require('./routers/dev-ssr')
+} else {
+  pageRouter = require('./routers/ssr')
+}
 
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 

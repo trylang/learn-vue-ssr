@@ -13,10 +13,18 @@ body {
   height: 100%;
 }
 body {
-  background-image: url(resources/client/assets/images/background-image-d0476aabbdb449a4fa8b30d5a2744dd0.jpg);
+  background-image: url(http://127.0.0.1:8888/public/resources/client/assets/images/background-image-d0476aabbdb449a4fa8b30d5a2744dd0.jpg);
   background-size: cover;
   background-position: center;
   font: 14px 'microsoft yahei';
   color: #333;
   font-weight: 500;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }

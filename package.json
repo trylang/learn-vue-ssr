@@ -5,15 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf dist",
+    "clean": "rimraf public && rimraf server-build",
     "lint": "eslint --ext .js --ext .jsx --ext .vue client/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client/",
     "precommit": "npm run lint-fix",
     "build:client": "cross-env NODE_ENV=production webpack --mode production --config build/webpack.config.client.js",
-    "build": "npm run clean && npm run build:client",
+    "build:server": "cross-env NODE_ENV=development webpack --mode development --config build/webpack.config.server.js",
+    "build": "npm run clean && npm run build:client && npm run build:server",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --mode development --config build/webpack.config.client.js",
     "dev:server": "nodemon server/server.js",
-    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\""
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "author": "itPoet",
   "license": "ISC",

@@ -82,7 +82,8 @@ if (isDev) {
       vendor: ['vue']
     },
     output: {
-      filename: '[name].[chunkhash:8].js'
+      filename: '[name].[chunkhash:8].js',
+      publicPath: '/public/' // 静态资源以public开头
     },
     module: {
       rules: [{
