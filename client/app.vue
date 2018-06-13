@@ -4,12 +4,13 @@
         <div id="cover"></div>
         <APP-header></APP-header>
         <h1 style="color: #fff;">{{fullName}} || {{counter}}</h1>
-        <router-link to="app">app</router-link>
-        <router-link to="login">login</router-link>
+        <!-- <router-link to="app">app</router-link>
+        <router-link to="login">login</router-link> -->
         <transition name="fade">
           <router-view/>
         </transition>
         <!-- <APP-todo></APP-todo> -->
+        <notification content="test notify" />
         <APP-footer></APP-footer>
     </div>
 </template>
