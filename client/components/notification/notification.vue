@@ -1,7 +1,11 @@
 <template>
-  <transition name="fade">
+  <transition name="fade" @after-leave="afterLeave" @after-enter="afterEnter">
     <div
       class="notification"
+      :style="style"
+      v-show="visible"
+      @mouseenter="clearTimer"
+      @mouseleave="createTimer"
     >
       <span class="content">{{content}}</span>
       <a class="btn" @click="handleClose">{{btn}}</a>
@@ -27,15 +31,20 @@ export default {
       visible: true
     }
   },
+  computed: {
+    style () {
+      return {}
+    }
+  },
   methods: {
     handleClose (e) {
       e.preventDefault()
       this.$emit('close')
     },
-    afterLeave () {
+    afterLeave () { // transition 动画结束的事件
       this.$emit('closed')
     },
-    afterEnter () {},
+    afterEnter () {}, // 在原始组件里做申明，以防报错，在继承组件中再使用相同方法进行覆盖
     clearTimer () {},
     createTimer () {}
   }

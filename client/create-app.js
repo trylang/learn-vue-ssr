@@ -20,7 +20,6 @@ Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(Meta)
 Vue.use(Notification)
-
 // // 在body下创建一个根节点
 // 在服务端渲染时没有ducument
 // const root = document.createElement('div')

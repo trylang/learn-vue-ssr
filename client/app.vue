@@ -10,7 +10,8 @@
           <router-view/>
         </transition>
         <!-- <APP-todo></APP-todo> -->
-        <notification content="test notify" />
+        <!-- <notification content="test notify" /> -->
+        <button @click="notify">点击试试</button>
         <APP-footer></APP-footer>
     </div>
 </template>
@@ -37,8 +38,8 @@ export default {
     // APPTodo
   },
   mounted () {
-    console.log(this.$store)
-    this.updateCountAsync({num: 5, time: 1000})
+    // console.log(this.$store)
+    // this.updateCountAsync({num: 5, time: 1000})
     // let i = 1
     // setInterval(() => {
     //   this.$store.commit('updateCount', i++)
@@ -59,7 +60,14 @@ export default {
   },
   methods: {
     ...mapMutations(['updateCount']),
-    ...mapActions(['updateCountAsync'])
+    ...mapActions(['updateCountAsync']),
+    notify () {
+      this.$notify({
+        content: 'test $notify haha',
+        btn: 'close',
+        autoClose: 5000
+      })
+    }
   }
 }
 </script>

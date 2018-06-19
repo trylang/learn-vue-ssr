@@ -16,6 +16,7 @@ const devServer = {
   overlay: { // webpack编译出现错误，则显示到网页上
     errors: true,
   },
+  headers: {'Access-Control-Allow-Origin': '*'}, // 允许跨域 
   // open: true,
   // historyApiFallback 当vue-router配置mode为history时，用户手动刷新页面
   // 会报404，因为会请求服务端， 所以需要此配置项。 如果是前端跳转路由则没问题。
