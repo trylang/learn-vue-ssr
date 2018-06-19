@@ -1,5 +1,20 @@
 <template>
     <section class="real-app">
+        <div class="tab-container">
+          <tabs :value="filter" @tabChange="handleChangeTab">
+            <tab :label="tab" :key="tab" :index="tab" v-for="tab in states"></tab>
+            <!-- <tab label="tab1" index="1">
+              <p>tab content 11</p>
+            </tab>
+            <tab index="2">
+              <span slot="label" style="color: red;">tab2</span>
+              <p>tab content 22</p>
+            </tab>
+            <tab label="tab3" index="3">
+              <p>tab content 33</p>
+            </tab> -->
+          </tabs>
+        </div>       
         <input type="text"
                class="add-input"
                autofocus="autofocus"
@@ -28,7 +43,6 @@
         <!-- 使用tabs组件 -->
         <APP-tabs :filter="filter"
                   :todos="todos"
-                  @toggle="toggleFilter"
                   @clearAllCompleted="clearAllCompleted"
         >
         </APP-tabs>
@@ -43,12 +57,13 @@ let id = 0
 
 export default {
   metaInfo: {
-    title: "Jane's app"
+    title: 'Jane\'s app'
   },
   // data() 声明数据
   data () {
     return {
       todos: [],
+      states: ['all', 'active', 'completed'],
       filter: 'all'
     }
   },
@@ -71,7 +86,6 @@ export default {
     APPItem,
     APPTabs
   },
-
   // 方法
   methods: {
     addTodo (e) {
@@ -83,18 +97,21 @@ export default {
         })
         e.target.value = ''
       } else {
-        // alert('傻X，输入不能为空 !-_-')
+        // alert('输入不能为空 !-_-')
       }
     },
     deleteTodo (id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
     },
-    toggleFilter (state) {
-      this.filter = state
-    },
+    // toggleFilter (state) {
+    //   this.filter = state
+    // },
     clearAllCompleted () {
       // 给todos赋一个新的值（即todo.completed为false的值）
       this.todos = this.todos.filter(todo => todo.completed === false)
+    },
+    handleChangeTab (value) {
+      this.filter = value
     }
   }
 }
@@ -123,5 +140,9 @@ export default {
   padding: 16px 16px 16px 36px;
   border: none;
   box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+}
+.tab-container {
+  background-color #fff
+  padding 0 15px
 }
 </style>
