@@ -6,6 +6,8 @@ const path = require('path')
 
 const staticRouter = require('./routers/static')
 
+const apiRouter = require('./routers/api')
+
 const app = new Koa()
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -36,6 +38,9 @@ app.use(async (ctx, next) => {
 
 // 先处理静态资源
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+// 处理以/api开头的路径
+app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
 
 let pageRouter
 if (isDev) {
