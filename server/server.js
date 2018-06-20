@@ -2,6 +2,8 @@ const Koa = require('koa')
 
 const send = require('koa-send') // koa-send 用于发送静态文件资源
 
+const koaBody = require('koa-body') // 用于post请求中body体中的解析
+
 const path = require('path')
 
 const staticRouter = require('./routers/static')
@@ -46,6 +48,8 @@ app.use(async (ctx, next) => {
     await next()
   }
 })
+
+app.use(koaBody()) // 在所有请求的最上面，用来解析request中的body体
 
 // 先处理静态资源
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())

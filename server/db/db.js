@@ -34,6 +34,38 @@ module.exports = (appId, appKey) => {
       return handleRequest(await request.get(`/${className}`, {
         headers: getHeaders()
       }))
+    },
+    async addTodo (todo) {
+      return handleRequest(await request.post(`/${className}`,
+        todo,
+        {headers: getHeaders()}
+      ))
+    },
+    async updataTodo (id, todo) {
+      return handleRequest(await request.put(
+        `/${className}/${id}`,
+        todo,
+        {headers: getHeaders()}
+      ))
+    },
+    async deleteTodo (id) {
+      return handleRequest(await request.delete(
+        `/${className}/${id}`,
+        {headers: getHeaders()}
+      ))
+    },
+    async deleteCompleted (ids) {
+      const requests = ids.map(id => {
+        return {
+          method: 'DELETE',
+          path: `/mcm/api/${className}/${id}`
+        }
+      })
+      return handleRequest(await request.post(
+        '/batch', // apiCloud批处理
+        {requests},
+        {headers: getHeaders()}
+      ))
     }
   }
 }
