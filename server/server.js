@@ -4,10 +4,13 @@ const send = require('koa-send') // koa-send 用于发送静态文件资源
 
 const koaBody = require('koa-body') // 用于post请求中body体中的解析
 
+const koaSession = require('koa-session')
+
 const path = require('path')
 
 const staticRouter = require('./routers/static')
 
+const userRouter = require('./routers/user')
 const apiRouter = require('./routers/api')
 
 const createDb = require('./db/db')
@@ -16,6 +19,12 @@ const config = require('../app.config')
 const db = createDb(config.db.appId, config.db.appKey)
 
 const app = new Koa()
+
+app.keys = ['vue ssr tech']
+app.use(koaSession({ // koaSession需要传第二个参数app
+  key: 'v-ssr-id',
+  maxAge: 2 * 60 * 60 * 1000 // 过期时间2小时
+}, app))
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -50,6 +59,9 @@ app.use(async (ctx, next) => {
 })
 
 app.use(koaBody()) // 在所有请求的最上面，用来解析request中的body体
+
+// 处理用户登陆放在最前面
+app.use(userRouter.routes()).use(userRouter.allowedMethods())
 
 // 先处理静态资源
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
