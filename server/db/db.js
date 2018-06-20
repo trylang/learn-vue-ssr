@@ -7,6 +7,20 @@ const request = axios.create({ // 参照文档https://docs.apicloud.com/Cloud-AP
   baseURL: 'https://d.apicloud.com/mcm/api/'
 })
 
+const createError = ({code, resp}) => {
+  const err = new Error(resp.mesage)
+  err.code = code
+  return err
+}
+
+const handleRequest = ({status, data, ...rest}) => {
+  if (status === 200) {
+    return data
+  } else {
+    return createError(status, rest)
+  }
+}
+
 module.exports = (appId, appKey) => {
   const getHeaders = () => {
     const now = Date.now()
@@ -16,6 +30,10 @@ module.exports = (appId, appKey) => {
     }
   }
   return {
-
+    async getAllTodos () {
+      return handleRequest(await request.get(`/${className}`, {
+        headers: getHeaders()
+      }))
+    }
   }
 }

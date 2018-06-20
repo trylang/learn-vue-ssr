@@ -8,6 +8,11 @@ const staticRouter = require('./routers/static')
 
 const apiRouter = require('./routers/api')
 
+const createDb = require('./db/db')
+const config = require('../app.config')
+
+const db = createDb(config.db.appId, config.db.appKey)
+
 const app = new Koa()
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -25,6 +30,12 @@ app.use(async (ctx, next) => {
       ctx.body = 'plesase try again later'
     }
   }
+})
+
+// 如何让koa获取到db对象，那就使用中间件，给ctx添加db属性，这时在api.js中就可以很容易的拿到db对象
+app.use(async (ctx, next) => {
+  ctx.db = db
+  await next()
 })
 
 // 使用koa-send中间件，异步发送ico,否则就下一步next
