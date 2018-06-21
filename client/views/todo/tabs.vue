@@ -39,9 +39,9 @@
         // toggleFilter (state) {
         //   this.$emit('toggle', state)
         // },
-        // clearAllCompleted () {
-        //   this.$emit('clearAllCompleted')
-        // }
+        clearAllCompleted () {
+          this.$emit('clearAllCompleted')
+        }
 
       }
     }

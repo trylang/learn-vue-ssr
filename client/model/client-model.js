@@ -33,5 +33,17 @@ export default {
   },
   login (username, password) {
     return handleRequest(request.post('/user/login', { username, password }))
+  },
+  createTodo (todo) {
+    return handleRequest(request.post(`/api/todo`, todo))
+  },
+  updataTodo (id, todo) {
+    return handleRequest(request.put(`/api/todo/${id}`, todo))
+  },
+  deleteTodo (id) {
+    return handleRequest(request.delete(`/api/todo/${id}`))
+  },
+  deleteAllCompleted (ids) {
+    return handleRequest(request.post(`/api/delete/completed`, {ids}))
   }
 }

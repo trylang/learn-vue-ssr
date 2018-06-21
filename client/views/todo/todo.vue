@@ -19,7 +19,7 @@
                class="add-input"
                autofocus="autofocus"
                placeholder="接下来要做什么?"
-               @keyup.enter="addTodo"
+               @keyup.enter="handleAdd"
         >
 
         <!-- 使用items组件 -->
@@ -31,6 +31,7 @@
                   v-for="todo in filteredTodos"
                   :key="todo.id"
                   @del="deleteTodo"
+                  @toggle="toggleTodoState"
         >
         </APP-item>
         <!--
@@ -89,28 +90,39 @@ export default {
   },
   // 方法
   methods: {
-    ...mapActions(['fetchTodos']),
-    // addTodo (e) {
-    //   if (e.target.value.trim()) {
-    //     this.todos.unshift({
-    //       id: id++,
-    //       content: e.target.value.trim(),
-    //       completed: false
-    //     })
-    //     e.target.value = ''
-    //   } else {
-    //     // alert('输入不能为空 !-_-')
-    //   }
-    // },
-    deleteTodo (id) {
-      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+    ...mapActions(['fetchTodos', 'addTodo', 'deleteTodo', 'updataTodo', 'deleteAllCompleted']),
+    handleAdd (e) {
+      const content = e.target.value.trim()
+      if (!content) {
+        this.$notify({
+          content: '必须输入要做的内容'
+        })
+        return
+      }
+      const todo = {
+        content,
+        completed: false
+      }
+      this.addTodo(todo)
+      e.target.value = ''
     },
+    toggleTodoState (todo) {
+      this.updataTodo({
+        id: todo.id,
+        todo: Object.assign({}, todo, {completed: !todo.completed})
+      })
+    },
+    // deleteTodo (id) {
+    //   this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+    // },
     // toggleFilter (state) {
     //   this.filter = state
     // },
     clearAllCompleted () {
+      console.log(222)
       // 给todos赋一个新的值（即todo.completed为false的值）
-      this.todos = this.todos.filter(todo => todo.completed === false)
+      // this.todos = this.todos.filter(todo => todo.completed === false)
+      this.deleteAllCompleted()
     },
     handleChangeTab (value) {
       this.filter = value

@@ -2,8 +2,13 @@
     <div :class="['todo-item', todo.completed ? 'completed' : '']">
         <input type="checkbox"
                class="toggle"
-               v-model="todo.completed"
+               :checked="todo.completed"
+               @click="handleToggle"
         >
+        <!-- <input type="checkbox"
+               class="toggle"
+               v-model="todo.completed" // 这里不能用v-model，因为completed状态是在state里面，需要action操作才能修改状态
+        > -->
         <label>{{todo.content}}</label>
         <button class="destroy" @click="deleteTodo"></button>
     </div>
@@ -24,6 +29,9 @@
           // this.$emit 触发del事件，并返回todo.id
           // 往父组件传递 del 方法
           this.$emit('del', this.todo.id)
+        },
+        handleToggle () {
+          this.$emit('toggle', this.todo)
         }
       }
     }

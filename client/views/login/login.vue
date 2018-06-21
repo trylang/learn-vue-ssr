@@ -47,7 +47,7 @@ export default {
           password: this.password
         })
           .then(() => { // 用new Promise包了一层
-            this.router.replace('/app')
+            this.$router.replace('/app')
           })
       }
     },

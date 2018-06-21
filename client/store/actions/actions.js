@@ -30,6 +30,52 @@ export default {
         handleError(err)
       })
   },
+  addTodo ({commit}, todo) {
+    model.createTodo(todo)
+      .then(data => {
+        commit('addTodo', data)
+        notify({
+          content: '又多了一件事情要做'
+        })
+      })
+      .catch(err => {
+        handleError(err)
+      })
+  },
+  updataTodo ({commit}, {id, todo}) {
+    model.updataTodo(id, todo)
+      .then(data => {
+        commit('updataTodo', {id, todo: data})
+      })
+      .catch(err => {
+        handleError(err)
+      })
+  },
+  deleteTodo ({commit}, id) {
+    model.deleteTodo(id)
+      .then(data => {
+        commit('deleteTodo', id)
+        notify({
+          content: '又少了一件事情要做'
+        })
+      })
+      .catch(err => {
+        handleError(err)
+      })
+  },
+  deleteAllCompleted ({commit, state}) {
+    const ids = state.todos.filter(t => t.completed).map(t => t.id)
+    model.deleteAllCompleted(ids)
+      .then(() => {
+        commit('deleteAllCompleted')
+        notify({
+          content: '清理一下~~~'
+        })
+      })
+      .catch(err => {
+        handleError(err)
+      })
+  },
   login ({commit}, {username, password}) {
     // 因为和页面有一个耦合的操作，接口调用成功之后要进行跳转操作。所以使用实例化promise，调用resolve和reject
     return new Promise((resolve, reject) => {

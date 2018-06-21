@@ -36,7 +36,7 @@ apiRouter
     const data = await ctx.db.deleteTodo(ctx.params.id)
     ctx.body = successResponse(data)
   })
-  .post('/todo/completed', async (ctx) => {
+  .post('/delete/completed', async (ctx) => {
     const data = await ctx.db.deleteCompleted(ctx.request.body.ids)
     ctx.body = successResponse(data)
   })
