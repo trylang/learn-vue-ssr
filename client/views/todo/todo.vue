@@ -52,8 +52,7 @@
 <script>
 import APPItem from './items.vue'
 import APPTabs from './tabs.vue'
-
-let id = 0
+import { mapState, mapActions } from 'vuex'
 
 export default {
   metaInfo: {
@@ -62,14 +61,16 @@ export default {
   // data() 声明数据
   data () {
     return {
-      todos: [],
       states: ['all', 'active', 'completed'],
       filter: 'all'
     }
   },
-
+  mounted () {
+    this.fetchTodos()
+  },
   // 计算
   computed: {
+    ...mapState(['todos']),
     filteredTodos () {
       if (this.filter === 'all') {
         return this.todos
@@ -88,18 +89,19 @@ export default {
   },
   // 方法
   methods: {
-    addTodo (e) {
-      if (e.target.value.trim()) {
-        this.todos.unshift({
-          id: id++,
-          content: e.target.value.trim(),
-          completed: false
-        })
-        e.target.value = ''
-      } else {
-        // alert('输入不能为空 !-_-')
-      }
-    },
+    ...mapActions(['fetchTodos']),
+    // addTodo (e) {
+    //   if (e.target.value.trim()) {
+    //     this.todos.unshift({
+    //       id: id++,
+    //       content: e.target.value.trim(),
+    //       completed: false
+    //     })
+    //     e.target.value = ''
+    //   } else {
+    //     // alert('输入不能为空 !-_-')
+    //   }
+    // },
     deleteTodo (id) {
       this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
     },

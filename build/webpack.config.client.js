@@ -23,6 +23,10 @@ const devServer = {
   historyApiFallback: {
     index: '/public/index.html'
   },
+  proxy: {
+    '/api': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333',
+  },
   // 不刷新热加载数据
   hot: true
 }
