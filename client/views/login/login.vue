@@ -8,6 +8,7 @@
       type="text"
       class="login-input"
       placeholder="User Name"
+      autocomplete="username"
       v-model="username"
     >
     <input
@@ -22,6 +23,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   metaInfo: {
     title: 'login page'
@@ -34,10 +37,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     doSubmit (e) {
       e.preventDefault()
       if (this.validate()) {
         // 调用接口
+        this.login({
+          username: this.username,
+          password: this.password
+        })
+          .then(() => { // 用new Promise包了一层
+            this.router.replace('/app')
+          })
       }
     },
     validate () {

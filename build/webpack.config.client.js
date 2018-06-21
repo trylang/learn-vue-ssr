@@ -14,7 +14,7 @@ const devServer = {
   port: '8888',
   host: '0.0.0.0',
   overlay: { // webpack编译出现错误，则显示到网页上
-    errors: true,
+    errors: true
   },
   headers: {'Access-Control-Allow-Origin': '*'}, // 允许跨域 
   // open: true,
@@ -25,7 +25,7 @@ const devServer = {
   },
   proxy: {
     '/api': 'http://127.0.0.1:3333',
-    '/user': 'http://127.0.0.1:3333',
+    '/user': 'http://127.0.0.1:3333'
   },
   // 不刷新热加载数据
   hot: true

@@ -4,8 +4,13 @@
 // 在webpack.config.client.js文件中，else分支中entry同样将之前的index.js改成client-entry.js
 
 import createApp from './create-app'
+import bus from './util/bus'
 
 const { app, router } = createApp()
+
+bus.$on('auth', () => {
+  router.push('/login')
+})
 
 router.onReady(() => {
   app.$mount('#root')
