@@ -2,6 +2,9 @@
     <!-- app.vue 的template标签内只能有一个节点 -->
     <div id="app">
         <div id="cover"></div>
+        <div id="loading" v-show="loading">
+          <loading />
+        </div>
         <APP-header></APP-header>
         <h1 style="color: #fff;">{{fullName}} || {{counter}}</h1>
         <!-- <router-link to="app">app</router-link>
@@ -24,6 +27,8 @@ import APPHeader from './layout/header.vue'
 // 引入footer.jsx组件
 import APPFooter from './layout/footer.jsx'
 
+import Loading from './components/loading/loading.vue'
+
 // 引入todo.vue组件
 // import APPTodo from './views/todo/todo.vue'
 
@@ -34,7 +39,8 @@ export default {
   // 声明组件，之后便可以使用组件标签
   components: {
     APPHeader,
-    APPFooter
+    APPFooter,
+    Loading
     // APPTodo
   },
   mounted () {
@@ -48,6 +54,7 @@ export default {
   computed: {
     ...mapState({
       // counter: 'count'
+      loading: (state) => state.loading,
       counter: (state) => state.count + 21
     }),
     ...mapGetters(['fullName'])
@@ -91,6 +98,18 @@ export default {
         background-color #555
         opacity 0.5
         z-index -1
+    }
+    #loading{
+      position fixed
+      top 0
+      right 0
+      bottom 0
+      left 0
+      background-color rgba(255,255,255,.3)
+      z-index 99
+      display flex
+      align-items center
+      justify-content center
     }
 
 </style>
