@@ -6,7 +6,11 @@
 import createApp from './create-app'
 import bus from './util/bus'
 
-const { app, router } = createApp()
+const { app, router, store } = createApp()
+
+if (window.__INITIAL_STATE__) { // server-render.js中加的initalState属性，以及在server.template.ejs中生成出来的__INITIAL_STATE__
+  store.replaceState(window.__INITIAL_STATE__)
+}
 
 bus.$on('auth', () => {
   router.push('/login')

@@ -67,7 +67,9 @@ export default {
     }
   },
   mounted () {
-    this.fetchTodos()
+    if (this.todos && this.todos.length < 1) {
+      this.fetchTodos()
+    }
   },
   asyncData ({store}) { // 自定义函数，vue默认是不会执行的。用于服务端渲染时调用
     // return new Promise((resolve) => {
@@ -75,11 +77,10 @@ export default {
     //     resolve('fafafafafa')
     //   }, 1000)
     // })
-    return store.dispatch('fetchTodos')
-    // if (store.state) {
-    //   console.log('store.dispatch', store.dispatch('fetchTodos'))
-    //   return store.dispatch('fetchTodos')
-    // }
+    if (store.state.user) {
+      return store.dispatch('fetchTodos')
+    }
+    return Promise.resolve()
   },
   // 计算
   computed: {
