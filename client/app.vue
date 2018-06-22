@@ -9,7 +9,7 @@
         <h1 style="color: #fff;">{{fullName}} || {{counter}}</h1>
         <!-- <router-link to="app">app</router-link>
         <router-link to="login">login</router-link> -->
-        <transition name="fade">
+        <transition name="fade" mode="out-in">
           <router-view/>
         </transition>
         <!-- <APP-todo></APP-todo> -->
