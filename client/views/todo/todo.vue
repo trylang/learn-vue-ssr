@@ -71,7 +71,7 @@ export default {
       this.fetchTodos()
     }
   },
-  asyncData ({store}) { // 自定义函数，vue默认是不会执行的。用于服务端渲染时调用
+  asyncData ({store, router}) { // 自定义函数，vue默认是不会执行的。用于服务端渲染时调用
     // return new Promise((resolve) => {
     //   setTimeout(() => {
     //     resolve('fafafafafa')
@@ -80,6 +80,7 @@ export default {
     if (store.state.user) {
       return store.dispatch('fetchTodos')
     }
+    router.replace('/login')
     return Promise.resolve()
   },
   // 计算

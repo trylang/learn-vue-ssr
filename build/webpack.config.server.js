@@ -3,7 +3,9 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const ExtractPlugin = require('extract-text-webpack-plugin')
-const VueServerPlugin = require('vue-server-renderer/server-plugin')
+
+// 在使用createRender方式进行服务端渲染时就不需要'vue-ssr-server-bundle.json'文件，而是直接读取“server-entry.js”，也就不需要VueServerPlugin了。故注释掉
+// const VueServerPlugin = require('vue-server-renderer/server-plugin')
 
 let config
 
@@ -67,8 +69,8 @@ config = merge(baseConfig, {
     new webpack.DefinePlugin({ // 有可能在文件中会用到这两个变量
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"server"'
-    }),
-    new VueServerPlugin()
+    })
+    // new VueServerPlugin()
   ]
 })
 
