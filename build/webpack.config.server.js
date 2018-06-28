@@ -5,7 +5,24 @@ const baseConfig = require('./webpack.config.base')
 const ExtractPlugin = require('extract-text-webpack-plugin')
 
 // 在使用createRender方式进行服务端渲染时就不需要'vue-ssr-server-bundle.json'文件，而是直接读取“server-entry.js”，也就不需要VueServerPlugin了。故注释掉
-// const VueServerPlugin = require('vue-server-renderer/server-plugin')
+// 但是在正式环境还是需要VueServerPlugin，所以调用时判断一下
+const VueServerPlugin = require('vue-server-renderer/server-plugin')
+
+const isDev = process.env.NODE_ENV === 'development'
+
+const plugins = [
+  // new webpack.HotModuleReplacementPlugin(), 不需要
+  // new webpack.NoEmitOnErrorsPlugin(), 不需要
+  new ExtractPlugin('styles.[chunkhash:8].css'),
+  new webpack.DefinePlugin({ // 有可能在文件中会用到这两个变量
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.VUE_ENV': '"server"'
+  })
+]
+
+if (isDev) {
+  plugins.push(new VueServerPlugin())
+}
 
 let config
 
@@ -62,16 +79,7 @@ config = merge(baseConfig, {
   //     'vue': path.join(__dirname, '../node_modules/vue/dist/vue.esm.js')
   //   }
   // },
-  plugins: [
-    // new webpack.HotModuleReplacementPlugin(), 不需要
-    // new webpack.NoEmitOnErrorsPlugin(), 不需要
-    new ExtractPlugin('styles.[chunkhash:8].css'),
-    new webpack.DefinePlugin({ // 有可能在文件中会用到这两个变量
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      'process.env.VUE_ENV': '"server"'
-    })
-    // new VueServerPlugin()
-  ]
+  plugins
 })
 
 config.resolve = {
