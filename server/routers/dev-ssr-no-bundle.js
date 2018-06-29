@@ -29,7 +29,6 @@ serverCompiler.watch({}, (err, stats) => { // 看webpack文档
   stats = stats.toJson()
   stats.errors.forEach(err => console.log(err))
   stats.warnings.forEach(warn => console.warn(warn))
-
   const bundlePath = path.join(
     serverConfig.output.path,
     'server-entry.js' // VueServerPlugin默认生成文件路径名
