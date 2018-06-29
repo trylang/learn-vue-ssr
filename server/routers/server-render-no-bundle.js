@@ -1,7 +1,7 @@
 const ejs = require('ejs')
 
 module.exports = async (ctx, renderer, template, bundle) => {
-  ctx.header['ContentType'] = 'text/html' // 指定ctx的文件输出格式是html
+  ctx.headers['Content-Type'] = 'text/html' // 指定ctx的文件输出格式是html
 
   // 因为服务端渲染就没有登录这个接口，所以需要在ctx中获取用户信息
   // 用在server-entry.js中让context有user值

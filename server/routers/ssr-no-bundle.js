@@ -9,7 +9,7 @@ const serverRender = require('./server-render-no-bundle')
 
 const clientManifest = require('../../public/vue-ssr-client-manifest.json')
 const renderer = VueServerRender.createRenderer(
-  path.join(__dirname, '../../server-build/vue-ssr-server-bundle.json'),
+  // path.join(__dirname, '../../server-build/vue-ssr-server-bundle.json'),
   {
     inject: false,
     clientManifest
