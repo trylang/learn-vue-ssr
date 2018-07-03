@@ -3,7 +3,7 @@ const Router = require('koa-router')
 // 只处理前缀是/api的路径
 const apiRouter = new Router({prefix: '/api'})
 
-const validataUser = async (ctx, next) => {
+const validateUser = async (ctx, next) => {
   if (!ctx.session.user) {
     ctx.status = 401
     ctx.body = 'need login'
@@ -11,6 +11,8 @@ const validataUser = async (ctx, next) => {
     await next()
   }
 }
+
+apiRouter.use(validateUser)
 
 const successResponse = (data) => {
   return {
@@ -20,7 +22,7 @@ const successResponse = (data) => {
 }
 
 apiRouter
-  .get('/todos', validataUser, async (ctx) => {
+  .get('/todos', async (ctx) => {
     const todos = await ctx.db.getAllTodos()
     ctx.body = successResponse(todos)
   })
@@ -28,7 +30,7 @@ apiRouter
     const data = await ctx.db.addTodo(ctx.request.body)
     ctx.body = successResponse(data)
   })
-  .put('/todo/:id', validataUser, async (ctx) => {
+  .put('/todo/:id', async (ctx) => {
     const data = await ctx.db.updataTodo(ctx.params.id, ctx.request.body)
     ctx.body = successResponse(data)
   })
