@@ -8,7 +8,7 @@ const axios = require('axios')
 
 // memory-fs读取文件是写入内存里，而是磁盘上，如果是写入磁盘。会出现文件夹。
 // 写入磁盘的过程耗时长，且效率低。
-const MemoryFS = require('memory-fs')
+// const MemoryFS = require('memory-fs')
 const fs = require('fs')
 const webpack = require('webpack')
 const VueServerRenderer = require('vue-server-renderer')
@@ -29,7 +29,6 @@ serverCompiler.watch({}, (err, stats) => { // 看webpack文档
   stats = stats.toJson()
   stats.errors.forEach(err => console.log(err))
   stats.warnings.forEach(warn => console.warn(warn))
-
   const bundlePath = path.join(
     serverConfig.output.path,
     'server-entry.js' // VueServerPlugin默认生成文件路径名
@@ -56,7 +55,7 @@ serverCompiler.watch({}, (err, stats) => { // 看webpack文档
   console.log('new bundle generated')
 })
 
-const handleSSR = async(ctx) => {
+const handleSSR = async (ctx) => {
   if (!bundle) {
     ctx.body = '请稍等。。。'
     return

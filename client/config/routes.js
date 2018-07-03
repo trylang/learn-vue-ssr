@@ -8,7 +8,10 @@ export default [{
 }, {
   path: '/app',
   component: () => import('../views/todo/todo.vue')
+  // 用createRender方法，就需要异步改同步
+  // component: Todo
 }, {
   path: '/login',
   component: () => import('../views/login/login.vue')
+  // component: Login
 }]
